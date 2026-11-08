@@ -59,21 +59,30 @@
   .section-head p{margin:0;color:var(--muted);max-width:420px}
 
   .grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
-  @media (max-width:560px){.member{min-height:0}}
-  .member{background:var(--card);border-radius:var(--radius);border:1px solid var(--sand-2);
-    display:flex;flex-direction:column;min-height:170px;transition:transform .2s,box-shadow .2s}
-  .member a.card-link{display:flex;flex-direction:column;height:100%;padding:22px;text-decoration:none;border-radius:var(--radius)}
-  .member .card-static{display:flex;flex-direction:column;height:100%;padding:22px}
+  .search{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--sand-2);border-radius:999px;padding:12px 18px;margin:0 0 22px;max-width:460px;color:var(--muted)}
+  .search:focus-within{border-color:var(--sea);box-shadow:0 0 0 3px rgba(14,124,134,.15)}
+  .search input{border:0;outline:0;font:inherit;font-size:1rem;width:100%;background:transparent;color:var(--ink)}
+  .no-match{color:var(--muted);font-style:italic}
+  .grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+  .member{background:var(--card);border-radius:var(--radius);border:1px solid var(--sand-2);transition:transform .2s,box-shadow .2s}
   .member:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(11,59,70,.12)}
-  .num{font-weight:800;font-size:.78rem;letter-spacing:.16em;color:var(--sea)}
-  .name{font-weight:800;font-size:1.22rem;margin:6px 0 2px;line-height:1.25}
-  .badge{font-size:.78rem;color:var(--olive);font-weight:700}
-  .site{margin-top:auto;padding-top:16px;display:flex;align-items:center;gap:8px;font-weight:700;color:var(--sea);word-break:break-all}
-  .site svg{flex:none}
+  .card{display:flex;flex-direction:column;height:100%;padding:20px 22px}
+  .name{font-weight:800;font-size:1.15rem;line-height:1.25}
+  .badge{font-size:.78rem;color:var(--olive);font-weight:700;margin-top:4px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .chip{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;background:#e8f4f3;color:var(--sea);
+    font-weight:700;font-size:.88rem;text-decoration:none;max-width:100%}
+  .chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .chip.fb{background:#e9eefb;color:#1b4fb8}
+  .chip:hover{filter:brightness(.96)}
+  .phones{display:flex;flex-direction:column;gap:6px;margin-top:auto;padding-top:14px}
+  .chips + .phones{padding-top:14px}
+  .phone{display:inline-flex;align-items:center;gap:8px;color:var(--ink);font-weight:600;text-decoration:none;font-size:.95rem}
+  .phone svg{color:var(--sea);flex:none}
+  .phone small{color:var(--muted);font-weight:600}
+  .phone:hover span{text-decoration:underline}
   .soon{margin-top:auto;padding-top:16px;color:var(--muted);font-size:.9rem;font-style:italic}
-  a.card-link:focus-visible{outline:3px solid var(--sea);outline-offset:3px}
-
-  .more{margin:22px 0 0;color:var(--muted);font-style:italic;text-align:center}
+  a.chip:focus-visible,a.phone:focus-visible{outline:3px solid var(--sea);outline-offset:3px;border-radius:8px}
   .note{margin-top:36px;background:var(--sand-2);border-radius:var(--radius);padding:20px 22px;color:#3d4a3f;font-size:.95rem}
   footer{text-align:center;padding:36px 16px 48px;color:var(--muted);font-size:.88rem}
   footer img{width:56px;height:56px;display:block;margin:0 auto 10px}
@@ -113,78 +122,315 @@
 <main id="members">
   <div class="section-head">
     <h2>Accredited BELTTOA Members</h2>
-    <p>Tap a member to visit their website and book your El Nido tour with the ₱300 OFF promo.</p>
+    <p>Visit a member’s website or Facebook page, or call them directly to book your El Nido tour with the ₱300 OFF promo.</p>
   </div>
 
-  <!--
-    HOW TO ADD A WEBSITE:
-    For a member that shows "Website coming soon", replace its <div class="card-static"> ... </div>
-    with the same <a class="card-link" ...> block used by Anang Travel and Tours,
-    then change the href and the visible website text.
-  -->
-  <ul class="grid">
-    <li class="member">
-      <a class="card-link" href="https://anangtravel.com" target="_blank" rel="noopener">
-        <span class="num">01</span>
+  <label class="search" for="member-search">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="member-search" type="search" placeholder="Search a member" autocomplete="off">
+  </label>
+  <p class="no-match" id="no-match" hidden>No member matches your search.</p>
+
+  <ul class="grid" id="member-list">
+    <li class="member" data-name="alexzus travel and tours">
+      <div class="card">
+        <span class="name">Alexzus Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/ElnidoPalawanTourspecialist" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639050663881"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0905 066 3881</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="anang travel and tours">
+      <div class="card">
         <span class="name">Anang Travel and Tours</span>
         <span class="badge">Accredited Member</span>
-        <span class="site"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>anangtravel.com</span>
-      </a>
-    </li>
-    <li class="member">
-      <a class="card-link" href="https://devaynsinn.top/" target="_blank" rel="noopener">
-        <span class="num">02</span>
-        <span class="name">Devayn Travel and Tours</span>
-        <span class="badge">Accredited Member</span>
-        <span class="site"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>devaynsinn.top</span>
-      </a>
-    </li>
-    <li class="member">
-      <div class="card-static">
-        <span class="num">03</span>
-        <span class="name">Trishfanny Travel and Tours</span>
-        <span class="badge">Accredited Member</span>
-        <span class="soon">Website coming soon</span>
+        <div class="chips"><a class="chip" href="https://www.anangtravel.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>anangtravel.com</span></a><a class="chip fb" href="https://www.facebook.com/p/Anang-travel-and-tours-100063885130834/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639085545555"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0908 554 5555</span></a></div>
       </div>
     </li>
-    <li class="member">
-      <div class="card-static">
-        <span class="num">04</span>
+    <li class="member" data-name="avene travel services">
+      <div class="card">
+        <span class="name">Avene Travel Services</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/avenetravelservices/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639305747826"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0930 574 7826</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="bluquest travel &amp; tours">
+      <div class="card">
+        <span class="name">BluQuest Travel &amp; Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="phones"><a class="phone" href="tel:+639266952714"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0926 695 2714</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="byahero&#x27;s travel and tours">
+      <div class="card">
+        <span class="name">Byahero&#x27;s Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="phones"><a class="phone" href="tel:+639101473628"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0910 147 3628</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="cinco travel and tour">
+      <div class="card">
+        <span class="name">Cinco Travel and Tour</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://cincotravelandtour.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>cincotravelandtour.com</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639369904698"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0936 990 4698</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="clydenike &amp; guenkean travel and tours">
+      <div class="card">
+        <span class="name">Clydenike &amp; Guenkean Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/clydenike/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639461803802"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0946 180 3802</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="devayn&#x27;s travel and tours">
+      <div class="card">
+        <span class="name">Devayn&#x27;s Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://devaynsinn.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>devaynsinn.com</span></a><a class="chip fb" href="https://www.facebook.com/p/Devayns-Travel-and-Tours-100063531022428/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="el nest travel and tours (hark roca travel updates)">
+      <div class="card">
+        <span class="name">El Nest Travel and Tours (Hark Roca Travel Updates)</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/share/1JDYMQPLBG/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639393347444"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0939 334 7444</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="el nido boutique artcafe inc">
+      <div class="card">
+        <span class="name">El Nido Boutique Artcafe Inc</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/elnidoboutiqueandartcafe/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639209026317"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0920 902 6317</span></a><a class="phone" href="tel:+639175604020"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0917 560 4020</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="el nido islandgirl travel &amp; tours">
+      <div class="card">
+        <span class="name">El Nido IslandGirl Travel &amp; Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://elnidoislandgirl.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>elnidoislandgirl.com</span></a><a class="chip fb" href="https://www.facebook.com/elnidoislandgirl/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639451857841"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0945 185 7841</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="elher&#x27;minia travel and tour">
+      <div class="card">
+        <span class="name">Elher&#x27;Minia Travel and Tour</span>
+        <span class="badge">Accredited Member</span>
+        <div class="phones"><a class="phone" href="https://wa.me/639105023552" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2z"/></svg><span>0910 502 3552 <small>(WhatsApp)</small></span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="elmo&#x27;s travel and tours">
+      <div class="card">
+        <span class="name">Elmo&#x27;s Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://elmostravelandtours.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>elmostravelandtours.com</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639101681847"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0910 168 1847</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="go paradise travel &amp; tours">
+      <div class="card">
+        <span class="name">Go Paradise Travel &amp; Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/goparadisepalawan/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639270679471"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0927 067 9471</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="hannah travel and tours">
+      <div class="card">
+        <span class="name">Hannah Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="phones"><a class="phone" href="tel:+639703540619"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0970 354 0619</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="isla paraiso travel and tours">
+      <div class="card">
         <span class="name">Isla Paraiso Travel and Tours</span>
         <span class="badge">Accredited Member</span>
-        <span class="soon">Website coming soon</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/islaparaisotravelandtour/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639159220351"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0915 922 0351</span></a></div>
       </div>
     </li>
-    <li class="member">
-      <div class="card-static">
-        <span class="num">05</span>
-        <span class="name">Klienkris Travel and Tours</span>
+    <li class="member" data-name="islandvibes travel &amp; tours">
+      <div class="card">
+        <span class="name">IslandVibes Travel &amp; Tours</span>
         <span class="badge">Accredited Member</span>
-        <span class="soon">Website coming soon</span>
+        <div class="phones"><a class="phone" href="tel:+639949463993"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0994 946 3993</span></a><a class="phone" href="tel:+639949463883"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0994 946 3883</span></a></div>
       </div>
     </li>
-    <li class="member">
-      <div class="card-static">
-        <span class="num">06</span>
-        <span class="name">David John Travel and Tours</span>
+    <li class="member" data-name="kapupuruan travel and tours">
+      <div class="card">
+        <span class="name">Kapupuruan Travel and Tours</span>
         <span class="badge">Accredited Member</span>
-        <span class="soon">Website coming soon</span>
+        <div class="chips"><a class="chip" href="https://kapupuruantravelandtours.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>kapupuruantravelandtours.com</span></a><a class="chip fb" href="https://www.facebook.com/Kapupuruantours/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639465279724"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0946 527 9724</span></a></div>
       </div>
     </li>
-    <li class="member">
-      <div class="card-static">
-        <span class="num">07</span>
-        <span class="name">Etaws Travel and Tours</span>
+    <li class="member" data-name="kleinkris travel and tours">
+      <div class="card">
+        <span class="name">Kleinkris Travel and Tours</span>
         <span class="badge">Accredited Member</span>
-        <span class="soon">Website coming soon</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/KleinkrisTravelAndTour/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639215981221"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0921 598 1221</span></a><a class="phone" href="tel:+639154325566"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0915 432 5566</span></a></div>
       </div>
     </li>
-    <li class="member">
-      <div class="card-static">
-        <span class="num">08</span>
-        <span class="name">El Bacuit Travel and Tours</span>
+    <li class="member" data-name="knoa travel and tours">
+      <div class="card">
+        <span class="name">Knoa Travel and Tours</span>
         <span class="badge">Accredited Member</span>
-        <span class="soon">Website coming soon</span>
+        <div class="chips"><a class="chip" href="https://www.knoatravelandtours.site/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>knoatravelandtours.site</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639954497814"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0995 449 7814</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="lovelyn travel and tours">
+      <div class="card">
+        <span class="name">Lovelyn Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://lovelyntravelandtours.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>lovelyntravelandtours.com</span></a><a class="chip fb" href="https://www.facebook.com/lovelyntravelandtours" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639481091867"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0948 109 1867</span></a><a class="phone" href="tel:+639215909886"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0921 590 9886</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="napoleonwresses travel and tours">
+      <div class="card">
+        <span class="name">Napoleonwresses Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="phones"><a class="phone" href="tel:+639304804159"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0930 480 4159</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="paragua travel and tours">
+      <div class="card">
+        <span class="name">Paragua Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://paraguatours.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>paraguatours.com</span></a><a class="chip fb" href="https://www.facebook.com/paraguatours/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639639099393"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0963 909 9393</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="phil. travel à la carte inc.">
+      <div class="card">
+        <span class="name">Phil. Travel à la carte Inc.</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://www.philippinesalacarte.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>philippinesalacarte.com</span></a><a class="chip fb" href="https://www.facebook.com/PhilippinesALaCarte/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639176264626"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0917 626 4626</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="pugad ibon travel and tours">
+      <div class="card">
+        <span class="name">Pugad Ibon Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/people/PUGAD-IBON-Travel-and-Tours/61563623657799/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639393315324"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0939 331 5324</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="rakki travel and tours">
+      <div class="card">
+        <span class="name">Rakki Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="phones"><a class="phone" href="tel:+639107157265"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0910 715 7265</span></a><a class="phone" href="tel:+639850272389"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0985 027 2389</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="raw adventure travel and tour">
+      <div class="card">
+        <span class="name">Raw Adventure Travel and Tour</span>
+        <span class="badge">Accredited Member</span>
+        <div class="phones"><a class="phone" href="tel:+639952015299"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0995 201 5299</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="rr travel and tours">
+      <div class="card">
+        <span class="name">RR Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/rrtravelandtourselnido/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639983631297"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0998 363 1297</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="soledad de amor travel and tours">
+      <div class="card">
+        <span class="name">Soledad de Amor Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/p/Soledad-De-Amor-El-Nido-100085866945585/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639491836847"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0949 183 6847</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="summer island travel and tours">
+      <div class="card">
+        <span class="name">Summer Island Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/p/Summer-Island-Travel-and-Tours-61560264351937/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639128950070"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0912 895 0070</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="take a break palawan travel and tours">
+      <div class="card">
+        <span class="name">Take A Break Palawan Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="phones"><a class="phone" href="tel:+639129025835"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0912 902 5835</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="tao lostboys inc. (tao philippines)">
+      <div class="card">
+        <span class="name">Tao Lostboys Inc. (Tao Philippines)</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/taophilippines/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639088500069"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0908 850 0069</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="tarawis island tours">
+      <div class="card">
+        <span class="name">Tarawis Island Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://tarawiselnidoislandtours.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>tarawiselnidoislandtours.com</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639174238764"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0917 423 8764</span></a><a class="phone" href="tel:+639154760768"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0915 476 0768</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="travelbooks travel &amp; tours">
+      <div class="card">
+        <span class="name">Travelbooks Travel &amp; Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/Travelbookselnido" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639464366399"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0946 436 6399</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="tres maria&#x27;s travel and tours">
+      <div class="card">
+        <span class="name">Tres Maria&#x27;s Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip fb" href="https://www.facebook.com/p/Tres-Marias-Travel-and-Tours-100064117625888/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639197047774"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0919 704 7774</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="tropicalvista travel &amp; tours">
+      <div class="card">
+        <span class="name">TropicalVista Travel &amp; Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://tropicalvistaelnido.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>tropicalvistaelnido.com</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639649471606"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0964 947 1606</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="umi travel and tours">
+      <div class="card">
+        <span class="name">Umi Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://www.umitravelandtour.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>umitravelandtour.com</span></a><a class="chip fb" href="https://www.facebook.com/umitours/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639177736362"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0917 773 6362</span></a><a class="phone" href="tel:+639997134480"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0999 713 4480</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="wavehannah travel and tours">
+      <div class="card">
+        <span class="name">Wavehannah Travel and Tours</span>
+        <span class="badge">Accredited Member</span>
+        <div class="phones"><a class="phone" href="tel:+639497580195"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0949 758 0195</span></a></div>
+      </div>
+    </li>
+    <li class="member" data-name="youwander inc (apetours)">
+      <div class="card">
+        <span class="name">Youwander Inc (Apetours)</span>
+        <span class="badge">Accredited Member</span>
+        <div class="chips"><a class="chip" href="https://apetoursph.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>apetoursph.com</span></a><a class="chip fb" href="https://www.facebook.com/apetours.ph/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1.3 1.4-1.3H17V2.2C16.4 2.1 15.3 2 14.1 2 11.6 2 10 3.5 10 6.3v2.2H7.3V12H10v10h4V12h2.7l.4-3.5H14z"/></svg><span>Facebook</span></a></div>
+        <div class="phones"><a class="phone" href="tel:+639493460868"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>0949 346 0868</span></a></div>
       </div>
     </li>
   </ul>
@@ -201,5 +447,17 @@
   Bacuit El Nido Travel &amp; Tours Operators Association Inc. (BELTTOA)<br>El Nido, Palawan, Philippines
 </footer>
 
+<script>
+  (function(){
+    var input=document.getElementById('member-search');
+    var items=[].slice.call(document.querySelectorAll('#member-list .member'));
+    var none=document.getElementById('no-match');
+    input.addEventListener('input',function(){
+      var q=input.value.trim().toLowerCase(), shown=0;
+      items.forEach(function(li){var hit=!q||li.getAttribute('data-name').indexOf(q)>-1; li.hidden=!hit; if(hit)shown++;});
+      none.hidden=shown>0;
+    });
+  })();
+</script>
 </body>
 </html>
