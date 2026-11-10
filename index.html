@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BELTTOA Lean Season Promo | ₱300 OFF in El Nido</title>
-<meta name="description" content="₱300 OFF with accredited BELTTOA members in El Nido, Palawan. Promo period November 1 to December 15, 2026.">
+<title>BELTTOA | Accredited Travel Agencies of El Nido, Palawan</title>
+<meta name="description" content="BELTTOA, the LGU-accredited association of travel agencies in El Nido, Palawan. Find accredited members, island tour info, and the Lean Season Promo: ₱300 OFF, November 1 to December 15, 2026.">
 <meta property="og:title" content="BELTTOA Lean Season Promo: ₱300 OFF">
 <meta property="og:description" content="Book with any accredited BELTTOA member in El Nido. Valid November 1 to December 15, 2026.">
 <meta property="og:type" content="website">
@@ -86,15 +86,76 @@
   .note{margin-top:36px;background:var(--sand-2);border-radius:var(--radius);padding:20px 22px;color:#3d4a3f;font-size:.95rem}
   footer{text-align:center;padding:36px 16px 48px;color:var(--muted);font-size:.88rem}
   footer img{width:56px;height:56px;display:block;margin:0 auto 10px}
+  /* nav */
+  .topbar{flex-wrap:wrap}
+  .nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px}
+  .nav a{color:#fff;text-decoration:none;font-weight:700;font-size:.88rem;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(6px)}
+  .nav a:hover{background:rgba(255,255,255,.24)}
+  @media (max-width:720px){ .nav{margin-left:0;width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px} .nav a{white-space:nowrap} }
+  html{scroll-behavior:smooth}
+  section[id],main[id]{scroll-margin-top:12px}
+
+  /* shared section */
+  .section{max-width:1100px;margin:0 auto;padding:clamp(40px,7vw,80px) clamp(16px,4vw,48px)}
+  .band{background:#fff;border-top:1px solid var(--sand-2);border-bottom:1px solid var(--sand-2)}
+  .eyebrow{display:block;font-weight:800;letter-spacing:.2em;font-size:.75rem;text-transform:uppercase;color:var(--sea);margin-bottom:10px}
+  .lead{font-size:clamp(1.05rem,2.2vw,1.2rem);color:var(--ink);max-width:760px;margin:16px 0 0}
+  h3{font-weight:800;font-size:1.15rem;color:var(--deep);margin:0 0 10px}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,48px);margin-top:34px;align-items:start}
+  .story p{margin:0 0 14px}
+  .timeline{list-style:none;margin:0;padding:0;border-left:3px solid var(--sand-2)}
+  .timeline li{position:relative;padding:0 0 22px 22px}
+  .timeline li:last-child{padding-bottom:0}
+  .timeline li::before{content:"";position:absolute;left:-9px;top:4px;width:15px;height:15px;border-radius:50%;background:var(--lagoon);border:3px solid #fff;box-shadow:0 0 0 1px var(--sand-2)}
+  .timeline b{display:block;font-size:.8rem;letter-spacing:.14em;color:var(--sea)}
+  .timeline span{font-weight:700}
+  .mvg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+  .mvg article{background:var(--sand);border-radius:var(--radius);padding:24px;border:1px solid var(--sand-2)}
+  .mvg article p{margin:0;color:#2c3b3f}
+  .mvg .tag{display:inline-block;font-weight:800;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--deep);border-radius:999px;padding:6px 12px;margin-bottom:14px}
+  .lgu{margin-top:28px;background:var(--deep);color:#e6f4f2;border-radius:var(--radius);padding:24px clamp(20px,3vw,32px)}
+  .lgu h3{color:#fff}
+  .lgu p{margin:0 0 10px}.lgu p:last-child{margin:0}
+
+  /* visit */
+  .info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:34px}
+  .info{min-width:0;background:#fff;border:1px solid var(--sand-2);border-radius:var(--radius);padding:24px}
+  .info ul{margin:0;padding-left:20px}.info li{margin-bottom:8px}.info li:last-child{margin:0}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{width:100%;border-collapse:collapse;font-size:.95rem}
+  th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--sand-2);vertical-align:top}
+  th{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  td.amt{font-weight:800;white-space:nowrap;color:var(--deep)}
+  .tour{font-weight:800;color:var(--sea);white-space:nowrap}
+  .fineprint{color:var(--muted);font-size:.88rem;margin:12px 0 0}
+  .wide{grid-column:1/-1}
+  @media (max-width:820px){ .about-grid,.info-grid{grid-template-columns:minmax(0,1fr)} .mvg{grid-template-columns:1fr} }
+
+  @media (max-width:560px){
+    .info{padding:20px 18px}
+    table.fees thead{display:none}
+    table.fees tr{display:block;padding:12px 0;border-bottom:1px solid var(--sand-2)}
+    table.fees td{display:block;border:0;padding:2px 0}
+    table.fees td:first-child{font-weight:700}
+  }
+  .footer-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin:0 0 14px}
+  .footer-nav a{color:var(--sea);font-weight:700;text-decoration:none}
   @media (max-width:560px){ .accred-inner{grid-template-columns:1fr} .topbar img{width:54px;height:54px} }
 </style>
 </head>
 <body>
 
-<header class="hero">
+<header class="hero" id="top">
   <div class="topbar">
     <img src="logo.webp" alt="BELTTOA logo">
     <span>BELTTOA<small>Bacuit El Nido Travel &amp; Tours Operators Association Inc.</small></span>
+    <nav class="nav" aria-label="Main">
+      <a href="#members">Members</a>
+      <a href="#about">About</a>
+      <a href="#before-you-go">Before You Go</a>
+    </nav>
   </div>
   <div class="hero-body">
     <span class="kicker">Lean Season Promo</span>
@@ -505,7 +566,123 @@
   </div>
 </main>
 
+<section class="band" id="about">
+  <div class="section">
+    <span class="eyebrow">About BELTTOA</span>
+    <h2>Legitimate local operators, one shared standard</h2>
+    <p class="lead">Bacuit El Nido Travel and Tour Operators Association, Inc. (BELTTOA) is the LGU's solely accredited travel agency association in El Nido, Palawan.</p>
+
+    <div class="about-grid">
+      <div class="story">
+        <h3>Our story</h3>
+        <p>BELTTOA was established in 2018 by a group of travel agency owners, initially starting with approximately 80 members.</p>
+        <p>Our primary objective was to secure accreditation from the Local Government Unit (LGU) to ensure our legitimacy. We aimed to establish a shared goal: not only to boost El Nido's tourism but also to standardize island hopping tours and regulate their pricing.</p>
+        <p>When you book with an accredited BELTTOA member, you support local operators who follow the town's tourism rules and standard tour pricing.</p>
+      </div>
+      <div>
+        <h3>Our leadership</h3>
+        <ol class="timeline">
+          <li><b>2018</b><span>Mr. Benly Lim</span><br>Inaugural President</li>
+          <li><b>2023</b><span>Mr. Arnel Abrina</span><br>Board Member, succeeded as leader</li>
+          <li><b>2024 to present</b><span>Ms. Anafe Reynoso-Sabroso</span><br>President</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="mvg">
+      <article>
+        <span class="tag">Mission</span>
+        <p>To unite and empower El Nido's travel agencies by securing official Local Government Unit (LGU) accreditation, ensuring strict regulatory compliance, and establishing uniform standards and fair pricing for island hopping tours. We are dedicated to boosting El Nido tourism sustainably, protecting the interests of our approximately 80 founding members, and delivering legitimate, exceptional travel experiences to the global public.</p>
+      </article>
+      <article>
+        <span class="tag">Vision</span>
+        <p>To be the premier, government-accredited association of legitimate travel agencies in El Nido, fostering a sustainable, unified, and world-class tourism industry where local businesses thrive under shared standards, fair pricing, and a collective passion for our community.</p>
+      </article>
+      <article>
+        <span class="tag">Main Goal</span>
+        <p>To establish a fully accredited, unified network of legitimate travel agencies in El Nido that ensures fair business practices, standardized tour operations, and sustainable local tourism growth.</p>
+      </article>
+    </div>
+
+    <div class="lgu">
+      <h3>Working with the Municipality of El Nido</h3>
+      <p>BELTTOA conceived the "Seven (7) Wonders of El Nido," a rebranding of the island tours designed to address carrying capacity at popular destinations.</p>
+      <p>During the pandemic, BELTTOA requested the tour rate adjustments that became part of Ordinance No. 024, Series of 2020, approved by the Sangguniang Bayan on October 26, 2020.</p>
+    </div>
+  </div>
+</section>
+
+<section id="before-you-go">
+  <div class="section">
+    <span class="eyebrow">Before You Go</span>
+    <h2>Plan your El Nido trip</h2>
+    <p class="lead">A quick guide to fees, lagoon rules, island tours and getting here. Your accredited BELTTOA member can help with everything below when you book.</p>
+
+    <div class="info-grid">
+      <div class="info wide">
+        <h3>Fees</h3>
+        <div class="table-wrap">
+          <table class="fees">
+            <thead><tr><th>Fee</th><th>Amount</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Eco-Tourism Development Fee</td><td class="amt">₱400 per person</td><td>Valid for 5 days. Keep your receipt.</td></tr>
+              <tr><td>Big Lagoon or Small Lagoon user fee</td><td class="amt">₱200 per lagoon</td><td>Paid on top of the tour price.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fineprint">Rates as of November 2026 and may change. Your tour operator can confirm current fees.</p>
+      </div>
+
+      <div class="info wide">
+        <h3>Island tours</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tour</th><th>Highlights</th></tr></thead>
+            <tbody>
+              <tr><td class="tour">Tour A</td><td>Big Lagoon, Secret Lagoon, Shimizu Island, Seven Commandos Beach</td></tr>
+              <tr><td class="tour">Tour B</td><td>Snake Island sandbar, Cudugnon Cave, Cathedral Cave, Entalula Beach, Pinagbuyutan Island</td></tr>
+              <tr><td class="tour">Tour C</td><td>Helicopter Island, Hidden Beach, Secret Beach, Matinloc Shrine, Talisay or Star Beach</td></tr>
+              <tr><td class="tour">Tour D</td><td>Small Lagoon, Cadlao Lagoon, Pasandigan Cove, Paradise Beach, Natnat or Ipil Beach, Bukal Beach</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fineprint">Tour C is the most exposed route and is usually the first to be cancelled in rough weather. Stops can change with weather and sea conditions.</p>
+      </div>
+
+      <div class="info">
+        <h3>Lagoon rules</h3>
+        <ul>
+          <li>Big Lagoon and Small Lagoon allow a limited number of visitors per time slot, so your agency books your slot in advance.</li>
+          <li>Motorized boats cannot enter the lagoons. You kayak or swim in from the mouth.</li>
+          <li>Joiner tours do not visit Big Lagoon and Small Lagoon on the same day.</li>
+        </ul>
+      </div>
+
+      <div class="info">
+        <h3>Getting to El Nido</h3>
+        <ul>
+          <li><b>By air:</b> flights to Lio Airport leave from Clark, with connections from Cebu, Caticlan, Bohol and Coron. There are no direct flights from Manila since March 29, 2026.</li>
+          <li><b>From Puerto Princesa:</b> about 5 to 6 hours by bus or shared van, ending at the El Nido Transport Terminal in Corong Corong.</li>
+          <li><b>From Coron:</b> fast ferry, about 3.5 to 4 hours.</li>
+        </ul>
+      </div>
+
+      <div class="info wide">
+        <h3>Best time to visit</h3>
+        <ul>
+          <li><b>Calmest seas:</b> February and March.</li>
+          <li><b>Wet season:</b> July to October. Tours are cancelled more often, so keep a spare day in your plans.</li>
+          <li><b>Lean season:</b> fewer crowds, plus ₱300 OFF with accredited BELTTOA members from November 1 to December 15, 2026.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
+  <nav class="footer-nav" aria-label="Footer">
+    <a href="#top">Promo</a><a href="#members">Members</a><a href="#about">About</a><a href="#before-you-go">Before You Go</a>
+  </nav>
   <img src="logo.webp" alt="">
   Bacuit El Nido Travel &amp; Tours Operators Association Inc. (BELTTOA)<br>El Nido, Palawan, Philippines
 </footer>
