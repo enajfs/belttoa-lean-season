@@ -140,6 +140,19 @@
     table.fees td{display:block;border:0;padding:2px 0}
     table.fees td:first-child{font-weight:700}
   }
+  /* gallery */
+  .gallery-head{margin-top:44px}
+  .gallery-head p{margin:0;color:var(--muted)}
+  .gallery{columns:3 280px;column-gap:14px;margin-top:20px}
+  .gallery figure{break-inside:avoid;margin:0 0 14px;background:var(--sand);border-radius:14px;overflow:hidden;border:1px solid var(--sand-2)}
+  .gallery .ph{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+  .gallery img{display:block;width:100%;height:auto}
+  .gallery figcaption{font-size:.86rem;color:#3d4a3f;padding:10px 12px 12px;line-height:1.4}
+  .lightbox{border:0;padding:0;background:transparent;max-width:min(1000px,94vw);max-height:92vh}
+  .lightbox::backdrop{background:rgba(6,30,36,.88)}
+  .lightbox img{display:block;max-width:100%;max-height:80vh;margin:0 auto;border-radius:10px}
+  .lightbox p{color:#fff;text-align:center;margin:12px 8px 0;font-size:.95rem}
+  .lightbox .close{position:absolute;top:8px;right:8px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:22px;cursor:pointer}
   .footer-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin:0 0 14px}
   .footer-nav a{color:var(--sea);font-weight:700;text-decoration:none}
   @media (max-width:560px){ .accred-inner{grid-template-columns:1fr} .topbar img{width:54px;height:54px} }
@@ -609,6 +622,24 @@
       <p>BELTTOA conceived the "Seven (7) Wonders of El Nido," a rebranding of the island tours designed to address carrying capacity at popular destinations.</p>
       <p>During the pandemic, BELTTOA requested the tour rate adjustments that became part of Ordinance No. 024, Series of 2020, approved by the Sangguniang Bayan on October 26, 2020.</p>
     </div>
+
+    <div class="gallery-head">
+      <h3>BELTTOA in action</h3>
+      <p>Clean-ups, trainings, travel expos and community events with the LGU of El Nido.</p>
+    </div>
+    <div class="gallery">
+        <figure><button type="button" class="ph" data-src="img/cleanup-beach.webp" data-cap="Coastal clean-up by BELTTOA members" aria-label="View photo: Coastal clean-up by BELTTOA members"><img src="img/cleanup-beach.webp" alt="Coastal clean-up by BELTTOA members" width="1000" height="750" loading="lazy" decoding="async"></button><figcaption>Coastal clean-up by BELTTOA members</figcaption></figure>
+        <figure><button type="button" class="ph" data-src="img/training-workshop-2025.webp" data-cap="Training-Workshop for the Development of an Interpretation Program for the El Nido Managed Resource Protected Area, August 27 to 29, 2025" aria-label="View photo: Training-Workshop for the Development of an Interpretation Program for the El Nido Managed Resource Protected Area, August 27 to 29, 2025"><img src="img/training-workshop-2025.webp" alt="Training-Workshop for the Development of an Interpretation Program for the El Nido Managed Resource Protected Area, August 27 to 29, 2025" width="1000" height="750" loading="lazy" decoding="async"></button><figcaption>Training-Workshop for the Development of an Interpretation Program for the El Nido Managed Resource Protected Area, August 27 to 29, 2025</figcaption></figure>
+        <figure><button type="button" class="ph" data-src="img/cleanup-payong-payong.webp" data-cap="Clean-up at Payong-Payong Beach" aria-label="View photo: Clean-up at Payong-Payong Beach"><img src="img/cleanup-payong-payong.webp" alt="Clean-up at Payong-Payong Beach" width="750" height="1000" loading="lazy" decoding="async"></button><figcaption>Clean-up at Payong-Payong Beach</figcaption></figure>
+        <figure><button type="button" class="ph" data-src="img/travel-expo-booth.webp" data-cap="BELTTOA booth showcasing El Nido island hopping tours at a travel expo" aria-label="View photo: BELTTOA booth showcasing El Nido island hopping tours at a travel expo"><img src="img/travel-expo-booth.webp" alt="BELTTOA booth showcasing El Nido island hopping tours at a travel expo" width="720" height="960" loading="lazy" decoding="async"></button><figcaption>BELTTOA booth showcasing El Nido island hopping tours at a travel expo</figcaption></figure>
+        <figure><button type="button" class="ph" data-src="img/civil-service-2024.webp" data-cap="With the LGU of El Nido for the 124th Philippine Civil Service Anniversary, September 2024" aria-label="View photo: With the LGU of El Nido for the 124th Philippine Civil Service Anniversary, September 2024"><img src="img/civil-service-2024.webp" alt="With the LGU of El Nido for the 124th Philippine Civil Service Anniversary, September 2024" width="1000" height="750" loading="lazy" decoding="async"></button><figcaption>With the LGU of El Nido for the 124th Philippine Civil Service Anniversary, September 2024</figcaption></figure>
+        <figure><button type="button" class="ph" data-src="img/cleanup-pier.webp" data-cap="Clean-up drive, with collected waste brought to the pier" aria-label="View photo: Clean-up drive, with collected waste brought to the pier"><img src="img/cleanup-pier.webp" alt="Clean-up drive, with collected waste brought to the pier" width="750" height="1000" loading="lazy" decoding="async"></button><figcaption>Clean-up drive, with collected waste brought to the pier</figcaption></figure>
+        <figure><button type="button" class="ph" data-src="img/balinsasayaw-festival.webp" data-cap="Balinsasayaw Festival" aria-label="View photo: Balinsasayaw Festival"><img src="img/balinsasayaw-festival.webp" alt="Balinsasayaw Festival" width="1000" height="652" loading="lazy" decoding="async"></button><figcaption>Balinsasayaw Festival</figcaption></figure>
+        <figure><button type="button" class="ph" data-src="img/balinsasayaw-2025.webp" data-cap="Balinsasayaw 2025 community event" aria-label="View photo: Balinsasayaw 2025 community event"><img src="img/balinsasayaw-2025.webp" alt="Balinsasayaw 2025 community event" width="1000" height="750" loading="lazy" decoding="async"></button><figcaption>Balinsasayaw 2025 community event</figcaption></figure>
+        <figure><button type="button" class="ph" data-src="img/rizal-monument-visit.webp" data-cap="BELTTOA members at the Rizal Monument" aria-label="View photo: BELTTOA members at the Rizal Monument"><img src="img/rizal-monument-visit.webp" alt="BELTTOA members at the Rizal Monument" width="1000" height="750" loading="lazy" decoding="async"></button><figcaption>BELTTOA members at the Rizal Monument</figcaption></figure>
+        <figure><button type="button" class="ph" data-src="img/river-tour.webp" data-cap="BELTTOA members on a river tour" aria-label="View photo: BELTTOA members on a river tour"><img src="img/river-tour.webp" alt="BELTTOA members on a river tour" width="1000" height="750" loading="lazy" decoding="async"></button><figcaption>BELTTOA members on a river tour</figcaption></figure>
+        <figure><button type="button" class="ph" data-src="img/christmas-party.webp" data-cap="BELTTOA Christmas Party recognition night" aria-label="View photo: BELTTOA Christmas Party recognition night"><img src="img/christmas-party.webp" alt="BELTTOA Christmas Party recognition night" width="1000" height="750" loading="lazy" decoding="async"></button><figcaption>BELTTOA Christmas Party recognition night</figcaption></figure>
+    </div>
   </div>
 </section>
 
@@ -697,6 +728,23 @@
       items.forEach(function(li){var hit=!q||li.getAttribute('data-name').indexOf(q)>-1; li.hidden=!hit; if(hit)shown++;});
       none.hidden=shown>0;
     });
+  })();
+</script>
+<dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+  <button class="close" type="button" aria-label="Close">&times;</button>
+  <img src="" alt="">
+  <p></p>
+</dialog>
+
+<script>
+  (function(){
+    var d=document.getElementById('lightbox'); if(!d||!d.showModal) return;
+    var img=d.querySelector('img'), cap=d.querySelector('p');
+    document.querySelectorAll('.gallery .ph').forEach(function(b){
+      b.addEventListener('click',function(){img.src=b.dataset.src;img.alt=b.dataset.cap;cap.textContent=b.dataset.cap;d.showModal();});
+    });
+    d.querySelector('.close').addEventListener('click',function(){d.close();});
+    d.addEventListener('click',function(e){if(e.target===d)d.close();});
   })();
 </script>
 </body>
