@@ -140,6 +140,17 @@
     table.fees td{display:block;border:0;padding:2px 0}
     table.fees td:first-child{font-weight:700}
   }
+  /* tours */
+  .tours{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:6px}
+  .tour-card{background:var(--sand);border:1px solid var(--sand-2);border-radius:14px;padding:18px}
+  .tour-card h4{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:1.5rem;color:var(--deep);margin:0}
+  .tour-type{display:block;font-weight:700;color:var(--sea);font-size:.9rem;margin:2px 0 12px}
+  .tour-card .best{margin:0 0 12px;font-size:.92rem;color:#2c3b3f}
+  .tour-card ul{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid var(--sand-2)}
+  .tour-card li{position:relative;padding-left:14px;margin-bottom:6px;font-size:.95rem}
+  .tour-card li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--lagoon)}
+  @media (max-width:1000px){ .tours{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media (max-width:520px){ .tours{grid-template-columns:minmax(0,1fr)} }
   /* gallery */
   .gallery-head{margin-top:44px}
   .gallery-head p{margin:0;color:var(--muted)}
@@ -666,18 +677,33 @@
 
       <div class="info wide">
         <h3>Island tours</h3>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Tour</th><th>Highlights</th></tr></thead>
-            <tbody>
-              <tr><td class="tour">Tour A</td><td>Big Lagoon, Secret Lagoon, Shimizu Island, Seven Commandos Beach</td></tr>
-              <tr><td class="tour">Tour B</td><td>Snake Island sandbar, Cudugnon Cave, Cathedral Cave, Entalula Beach, Pinagbuyutan Island</td></tr>
-              <tr><td class="tour">Tour C</td><td>Helicopter Island, Hidden Beach, Secret Beach, Matinloc Shrine, Talisay or Star Beach</td></tr>
-              <tr><td class="tour">Tour D</td><td>Small Lagoon, Cadlao Lagoon, Pasandigan Cove, Paradise Beach, Natnat or Ipil Beach, Bukal Beach</td></tr>
-            </tbody>
-          </table>
+        <div class="tours">
+          <article class="tour-card">
+            <h4>Tour A</h4>
+            <span class="tour-type">Lagoon Activity</span>
+            <p class="best"><b>Best for:</b> First-timers and lagoon lovers</p>
+            <ul><li>Big Lagoon</li><li>7 Commando Beach</li><li>Secret Lagoon</li><li>Shimizu Island</li><li>Payong-payong Island</li></ul>
+          </article>
+          <article class="tour-card">
+            <h4>Tour B</h4>
+            <span class="tour-type">Cave &amp; Overlooking</span>
+            <p class="best"><b>Best for:</b> Explorers and photographers</p>
+            <ul><li>Snake Island</li><li>Entalula Island</li><li>Popolkan Island</li><li>Codugnon Cave</li><li>Cathedral Cave</li></ul>
+          </article>
+          <article class="tour-card">
+            <h4>Tour C</h4>
+            <span class="tour-type">Snorkeling Activity</span>
+            <p class="best"><b>Best for:</b> Snorkelers and adventurers</p>
+            <ul><li>Hidden Beach</li><li>Helicopter Island</li><li>Talisay Beach</li><li>Star Beach</li><li>Secret Beach</li></ul>
+          </article>
+          <article class="tour-card">
+            <h4>Tour D</h4>
+            <span class="tour-type">Swimming &amp; Snorkeling</span>
+            <p class="best"><b>Best for:</b> Families and a relaxed pace</p>
+            <ul><li>Small Lagoon</li><li>Cadlao Lagoon</li><li>Paradise Beach</li><li>Nat Nat Beach</li><li>Pasandigan Beach</li></ul>
+          </article>
         </div>
-        <p class="fineprint">Tour C is the most exposed route and is usually the first to be cancelled in rough weather. Stops can change with weather and sea conditions.</p>
+        <p class="fineprint">Stops can change with weather and sea conditions. Your tour operator will confirm the final itinerary.</p>
       </div>
 
       <div class="info">
